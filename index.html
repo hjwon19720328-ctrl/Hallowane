@@ -132,6 +132,12 @@
     <!-- 배경음악 오디오 엘리먼트 -->
     <audio id="bg-audio" src="happy.mp3" loop preload="auto"></audio>
 
+    <!-- BGM 껐다 켜기 버튼 (우측 상단 고정) -->
+    <button id="bgm-toggle-btn" onclick="toggleBGM()" class="fixed top-4 right-4 z-40 bg-purple-950/80 border border-purple-500/40 text-purple-300 hover:text-white px-4 py-2 rounded-full backdrop-blur-md shadow-lg transition-all flex items-center gap-2 text-sm font-semibold cursor-pointer">
+        <span id="bgm-icon">🔇</span>
+        <span id="bgm-text">BGM OFF</span>
+    </button>
+
     <div class="fog-container">
         <div class="fog-track">
             <div class="fog-panel"></div>
@@ -315,6 +321,12 @@
 
             <div class="p-6 overflow-y-auto space-y-6 text-sm text-gray-200">
                 
+                <!-- 상세 프로필 이미지 영역 -->
+                <div class="relative h-72 sm:h-80 w-full rounded-2xl overflow-hidden bg-gradient-to-b from-purple-950/40 to-slate-950 border border-purple-800/30 shadow-md">
+                    <img id="modal-img" src="" alt="캐릭터 이미지" class="w-full h-full object-cover object-center" onerror="this.src='https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=800&q=80'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#130d1e] via-transparent to-transparent"></div>
+                </div>
+
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-black/50 p-4 rounded-2xl border border-purple-800/30">
                     <div>
                         <span class="text-xs text-gray-400 block mb-0.5">나이 / 성별</span>
@@ -368,7 +380,7 @@
             </div>
 
             <div class="p-4 border-t border-purple-900/40 bg-purple-950/30 text-right">
-                <button onclick="closeModal()" class="px-5 py-2 bg-orange-600 hover:bg-orange-500 text-black font-bold rounded-xl text-sm transition-colors">
+                <button onclick="closeModal()" class="px-5 py-2 bg-orange-600 hover:bg-orange-500 text-black font-bold rounded-xl text-sm transition-colors cursor-pointer">
                     닫기
                 </button>
             </div>
@@ -378,11 +390,34 @@
     <script>
         lucide.createIcons();
 
+        // BGM 껐다 켜기 토글 기능
+        function toggleBGM() {
+            const audio = document.getElementById('bg-audio');
+            const bgmIcon = document.getElementById('bgm-icon');
+            const bgmText = document.getElementById('bgm-text');
+
+            if (audio.paused) {
+                audio.play().then(() => {
+                    bgmIcon.textContent = '🔊';
+                    bgmText.textContent = 'BGM ON';
+                }).catch(error => {
+                    console.log("오디오 재생 실패:", error);
+                });
+            } else {
+                audio.pause();
+                bgmIcon.textContent = '🔇';
+                bgmText.textContent = 'BGM OFF';
+            }
+        }
+
         // "아이들 알아보기" 버튼 클릭 시 실행되는 함수
         function startExperience() {
-            // 1. happy.mp3 반복 재생 시작
+            // 1. happy.mp3 반복 재생 시작 및 버튼 상태 업데이트
             const audio = document.getElementById('bg-audio');
-            audio.play().catch(error => {
+            audio.play().then(() => {
+                document.getElementById('bgm-icon').textContent = '🔊';
+                document.getElementById('bgm-text').textContent = 'BGM ON';
+            }).catch(error => {
                 console.log("브라우저 정책으로 인해 오디오 자동 재생이 차단될 수 있습니다:", error);
             });
 
@@ -405,6 +440,7 @@
                 name: "시안 (Cian)",
                 subtitle: "ISFJ • 2w1 • 질서 선 • 송의 쌍둥이 누나",
                 icon: "🩹",
+                image: "https://igx.kr/u/ymc/c/1",
                 age: "21세 / 여성",
                 physical: "178cm / 비,비밀!😣",
                 mbti: "ISFJ / 2w1",
@@ -418,6 +454,7 @@
                 name: "송 (Song)",
                 subtitle: "ENTP • 7w6 • 중립 선 • 시안의 쌍둥이 동생",
                 icon: "🐱",
+                image: "https://igx.kr/u/ymc/d/1",
                 age: "21세 / 남성",
                 physical: "149cm / 45kg",
                 mbti: "ENTP / 7w6",
@@ -437,6 +474,7 @@
             document.getElementById('modal-title').textContent = oc.name;
             document.getElementById('modal-subtitle').textContent = oc.subtitle;
             document.getElementById('modal-icon').textContent = oc.icon;
+            document.getElementById('modal-img').src = oc.image;
             document.getElementById('modal-age').textContent = oc.age;
             document.getElementById('modal-physical').textContent = oc.physical;
             document.getElementById('modal-mbti').textContent = oc.mbti;
