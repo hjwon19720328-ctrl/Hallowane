@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,29 +13,33 @@
             padding: 0;
         }
 
-        html, body {
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
             width: 100%;
             min-height: 100vh;
-            background-color: #0d0a14;
+            background-color: #0c0814;
             color: #e0e0e0;
             font-family: 'Noto Sans KR', sans-serif;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* 통일된 단일 배경 오버레이 (색상 분단 버그 해결) */
+        /* 단일 톤 오버레이 배경 (분단 버그 고침) */
         .bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at center, rgba(35, 15, 50, 0.9) 0%, rgba(10, 6, 18, 0.98) 100%);
+            background: radial-gradient(circle at center, rgba(40, 15, 60, 0.85) 0%, rgba(12, 8, 20, 0.98) 85%);
             pointer-events: none;
             z-index: 1;
         }
 
-        /* 배경 요소를 담는 컨테이너 */
+        /* 사탕 모을 때 올라가는 유령/호박 컨테이너 */
         #spooky-bg-container {
             position: fixed;
             top: 0;
@@ -51,27 +54,47 @@
         .floating-object {
             position: absolute;
             font-size: 2rem;
-            opacity: 0.25;
+            opacity: 0.35;
             animation: floatAnim linear infinite alternate;
             user-select: none;
-            transition: opacity 0.5s ease;
         }
 
         @keyframes floatAnim {
             0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-30px) rotate(15deg); }
+            100% { transform: translateY(-35px) rotate(20deg); }
         }
 
-        /* 메인 콘텐츠 구조 */
         .main-wrapper {
             position: relative;
             z-index: 3;
             width: 100%;
         }
 
-        /* Hero Section */
+        /* BGM 컨트롤 버튼 */
+        .bgm-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            background: rgba(20, 15, 30, 0.8);
+            border: 1px solid #ff7518;
+            color: #ff9d00;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+        }
+
+        .bgm-control:hover {
+            background: #ff7518;
+            color: #fff;
+        }
+
+        /* Hero Section (인트로 연출) */
         .hero {
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -80,26 +103,42 @@
             padding: 20px;
         }
 
+        /* 밑에서 위로 올라오는 연출 애니메이션 */
+        .hero-title-container {
+            animation: slideUp 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .hero h1 {
             font-family: 'Creepster', cursive;
-            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-size: clamp(3.5rem, 9vw, 6rem);
             color: #ff7518;
             text-shadow: 0 0 10px #ff7518, 0 0 25px #ff4500, 0 0 45px #800080;
             letter-spacing: 3px;
             margin-bottom: 20px;
-            animation: pulse 2s infinite alternate;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #b8a9c9;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             word-break: keep-all;
         }
 
         .btn-main {
-            padding: 15px 40px;
-            font-size: 1.2rem;
+            padding: 16px 42px;
+            font-size: 1.25rem;
             font-weight: bold;
             color: #fff;
             background: linear-gradient(135deg, #ff7518, #800080);
@@ -116,35 +155,35 @@
             background: linear-gradient(135deg, #800080, #ff7518);
         }
 
-        /* 사탕 미니게임 카운터 */
+        /* 사탕 미니게임 박스 */
         .candy-game-box {
-            margin-top: 35px;
+            margin-top: 40px;
             background: rgba(25, 18, 38, 0.85);
             border: 2px solid #ff7518;
-            padding: 20px 30px;
+            padding: 18px 30px;
             border-radius: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             box-shadow: 0 0 20px rgba(255, 117, 24, 0.3);
         }
 
         .candy-count {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #ffaa00;
             font-weight: bold;
         }
 
         .btn-candy {
-            padding: 12px 25px;
-            font-size: 1rem;
+            padding: 10px 22px;
+            font-size: 0.95rem;
             background: #800080;
             color: white;
             border: 1px solid #d8b4fe;
             border-radius: 30px;
             cursor: pointer;
-            transition: transform 0.1s ease, background 0.2s;
+            transition: transform 0.1s ease;
         }
 
         .btn-candy:active {
@@ -154,14 +193,14 @@
         /* OC Section */
         .oc-section {
             min-height: 100vh;
-            padding: 80px 20px;
+            padding: 90px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             color: #ff7518;
             margin-bottom: 50px;
             text-shadow: 0 0 10px rgba(255, 117, 24, 0.4);
@@ -175,7 +214,7 @@
         }
 
         .card {
-            background: rgba(22, 16, 32, 0.9);
+            background: rgba(22, 16, 32, 0.88);
             border: 2px solid #3a2e4c;
             border-radius: 20px;
             width: 380px;
@@ -322,27 +361,31 @@
             color: #ddd;
             font-size: 0.95rem;
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.03); }
-        }
     </style>
 </head>
 <body>
 
-    <!-- 통일된 단일 어두운 배경 오버레이 -->
+    <!-- 단일 오버레이 배경 -->
     <div class="bg-overlay"></div>
 
-    <!-- 배경에 사탕 클릭시 늘어나는 유령/호박 컨테이너 -->
+    <!-- 브금 (Happy BGM 무한 반복 재생) -->
+    <audio id="bgm" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9918b2c589.mp3?filename=happy-halloween-124017.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="bgm-control" id="bgm-btn" onclick="toggleBGM()">🎵 BGM ON/OFF</button>
+
+    <!-- 배경에 사탕 클릭 시 늘어나는 유령/호박 컨테이너 -->
     <div id="spooky-bg-container"></div>
 
     <div class="main-wrapper">
-        <!-- Landing Hero Section -->
+        <!-- Landing Hero Section (밑에서 올라오는 연출) -->
         <section class="hero" id="home">
-            <h1>HAPPY HALLOWEEN!</h1>
-            <p>어둠 속에서 피어난 남매의 이야기, 할로윈 축제에 오신 것을 환영합니다.</p>
-            <button class="btn-main" onclick="scrollToOC()">아이들 알아보기 🎃</button>
+            <div class="hero-title-container">
+                <h1>HAPPY HALLOWEEN!</h1>
+                <p>어둠 속에서 피어난 남매의 이야기, 할로윈 축제에 오신 것을 환영합니다.</p>
+                <button class="btn-main" onclick="startAndScroll()">아이들 알아보기 🎃</button>
+            </div>
 
             <!-- 사탕 클릭 게임 -->
             <div class="candy-game-box">
@@ -484,18 +527,44 @@
         let candyCount = 0;
         const spookyIcons = ['👻', '🎃', '🦇', '💀', '🕷️'];
         const container = document.getElementById('spooky-bg-container');
+        const bgm = document.getElementById('bgm');
+        let bgmStarted = false;
 
-        // 초기 생성 (기본 6개)
-        for (let i = 0; i < 6; i++) {
+        // 초기 배경 유령 배치
+        for (let i = 0; i < 8; i++) {
             spawnSpookyObject();
         }
 
+        // BGM 재생 함수
+        function playBGM() {
+            if (!bgmStarted) {
+                bgm.volume = 0.4; // 음량 40%
+                bgm.play().catch(err => console.log("자동재생 제한됨"));
+                bgmStarted = true;
+            }
+        }
+
+        function toggleBGM() {
+            if (bgm.paused) {
+                bgm.play();
+                bgmStarted = true;
+            } else {
+                bgm.pause();
+            }
+        }
+
+        function startAndScroll() {
+            playBGM(); // 브금 재생
+            document.getElementById('characters').scrollIntoView({ behavior: 'smooth' });
+        }
+
         function collectCandy() {
+            playBGM(); // 사탕 클릭시에도 브금 시작
             candyCount++;
             document.getElementById('candy-display').innerText = `🍬 모은 사탕: ${candyCount}개`;
 
-            // 사탕 개수에 따라 배경 할로윈 오브젝트 추가 증식
-            if (candyCount % 2 === 0 && document.querySelectorAll('.floating-object').length < 60) {
+            // 사탕 모을 때마다 배경 오브젝트 추가 생성 (최대 70개까지)
+            if (document.querySelectorAll('.floating-object').length < 70) {
                 spawnSpookyObject();
             }
         }
@@ -505,11 +574,10 @@
             el.className = 'floating-object';
             el.innerText = spookyIcons[Math.floor(Math.random() * spookyIcons.length)];
 
-            // 랜덤 위치 및 애니메이션 속도 설정
             const left = Math.random() * 95;
             const top = Math.random() * 95;
-            const size = Math.random() * 1.5 + 1.2; // 1.2rem ~ 2.7rem
-            const duration = Math.random() * 3 + 2; // 2s ~ 5s
+            const size = Math.random() * 1.5 + 1.2;
+            const duration = Math.random() * 3 + 2;
 
             el.style.left = `${left}vw`;
             el.style.top = `${top}vh`;
@@ -517,10 +585,6 @@
             el.style.animationDuration = `${duration}s`;
 
             container.appendChild(el);
-        }
-
-        function scrollToOC() {
-            document.getElementById('characters').scrollIntoView({ behavior: 'smooth' });
         }
 
         function openModal(id) {
