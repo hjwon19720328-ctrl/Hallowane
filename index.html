@@ -93,6 +93,7 @@
             transform: translateY(-8px) scale(1.02);
         }
 
+        /* 좌우반전이 번갈아 나타나도록 하여 배경 분단(끊김) 버그 해결 ]]][[[ 구조 */
         .fog-container {
             position: fixed;
             top: 0;
@@ -104,13 +105,21 @@
             pointer-events: none;
             opacity: 0.12;
         }
-        .fog-img {
+        .fog-track {
+            display: flex;
             position: absolute;
             height: 100%;
-            width: 300%;
-            background: url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=1200&q=80') repeat-x;
-            background-size: contain;
+            width: 400%;
             animation: fogMove 60s linear infinite;
+        }
+        .fog-panel {
+            flex: 1;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=1200&q=80') no-repeat center center;
+            background-size: cover;
+        }
+        .fog-panel.mirrored {
+            transform: scaleX(-1);
         }
         @keyframes fogMove {
             0% { transform: translate3d(0, 0, 0); }
@@ -124,7 +133,12 @@
     <audio id="bg-audio" src="happy.mp3" loop preload="auto"></audio>
 
     <div class="fog-container">
-        <div class="fog-img"></div>
+        <div class="fog-track">
+            <div class="fog-panel"></div>
+            <div class="fog-panel mirrored"></div>
+            <div class="fog-panel"></div>
+            <div class="fog-panel mirrored"></div>
+        </div>
     </div>
 
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -133,18 +147,6 @@
         <div class="absolute bottom-1/4 left-[4%] text-purple-400/20 animate-float-slow text-6xl">🦇</div>
         <div class="absolute bottom-12 right-[10%] text-orange-400/20 animate-float text-6xl">💀</div>
     </div>
-
-    <nav class="relative z-20 flex justify-between items-center px-6 py-4 border-b border-purple-900/40 bg-black/50 backdrop-blur-md">
-        <div class="flex items-center gap-2">
-            <span class="text-2xl">🎃</span>
-            <span class="font-spooky text-2xl tracking-widest text-orange-500 text-glow-orange">TWIN SPOOKS</span>
-        </div>
-        <div class="flex items-center gap-6 text-sm font-medium">
-            <a href="#hero" class="hover:text-orange-400 transition-colors">홈</a>
-            <a href="#characters" class="hover:text-orange-400 transition-colors">캐릭터 정보</a>
-            <a href="#minigame" class="hover:text-orange-400 transition-colors">미니게임</a>
-        </div>
-    </nav>
 
     <section id="hero" class="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-4 pt-10 pb-20">
         <div class="mb-6 relative animate-pulse-glow">
@@ -161,7 +163,7 @@
             <strong class="text-orange-400 font-bold">'시안'</strong>과 <strong class="text-purple-300 font-bold">'송'</strong>의 특별한 할로윈 이야기
         </p>
 
-        <!-- 아이들 알아보기 버튼 (클릭 시 음악 재생, 스크롤 해제, 버튼 삭제 및 아래로 이동) -->
+        <!-- 아이들 알아보기 버튼 -->
         <button id="explore-btn" onclick="startExperience()" class="group relative inline-flex items-center gap-3 px-8 py-4 text-xl font-bold rounded-full bg-gradient-to-r from-orange-600 via-purple-700 to-orange-600 bg-[length:200%_auto] text-white shadow-lg transition-all duration-500 hover:bg-right hover:scale-105 hover:shadow-orange-500/50 border border-orange-400/30 cursor-pointer">
             <span>아이들 알아보기</span>
             <i data-lucide="chevron-down" class="w-6 h-6 transition-transform group-hover:translate-y-1"></i>
@@ -450,7 +452,6 @@
 
         function closeModal() {
             modal.classList.add('hidden');
-            // 모달을 닫을 때 스크롤 잠금 상태 유지 여부 결정 (이미 언락된 상태라면 다시 auto로)
             if (document.body.classList.contains('unlocked')) {
                 document.body.style.overflow = 'auto';
             }
