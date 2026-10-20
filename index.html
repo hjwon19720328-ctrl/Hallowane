@@ -3,415 +3,453 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Halloween! - OC Intro</title>
+    <title>Happy Halloween! - 시안 & 송 Showcase</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;600;800&family=Creepster&display=swap" rel="stylesheet">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Noto+Sans+KR:wght@300;400;700&display=swap');
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: #0d0a14;
-            color: #e0e0e0;
-            font-family: 'Noto Sans KR', sans-serif;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, rgba(255, 117, 24, 0.08) 0%, rgba(13, 10, 20, 0.95) 75%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
+        .font-spooky {
             font-family: 'Creepster', cursive;
-            font-size: 5rem;
-            color: #ff7518;
-            text-shadow: 0 0 10px #ff7518, 0 0 20px #ff4500, 0 0 40px #800080;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite alternate;
+        }
+        .font-batang {
+            font-family: 'Gowun Batang', serif;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #0c0814;
+            color: #f3f4f6;
+            overflow-x: hidden;
         }
 
-        .hero p {
-            font-size: 1.3rem;
-            color: #b8a9c9;
-            margin-bottom: 35px;
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0c0814;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ea580c;
+            border-radius: 4px;
         }
 
-        .btn-main {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #fff;
-            background: linear-gradient(135deg, #ff7518, #800080);
-            border: 2px solid #ff7518;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(255, 117, 24, 0.5);
-            transition: all 0.3s ease;
+        .glow-orange {
+            box-shadow: 0 0 25px rgba(249, 115, 22, 0.4);
+        }
+        .glow-purple {
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+        }
+        .text-glow-orange {
+            text-shadow: 0 0 12px rgba(249, 115, 22, 0.8), 0 0 25px rgba(249, 115, 22, 0.4);
         }
 
-        .btn-main:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 25px rgba(255, 117, 24, 0.9);
-            background: linear-gradient(135deg, #800080, #ff7518);
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(-4deg); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.7; filter: drop-shadow(0 0 20px rgba(249, 115, 22, 0.8)); }
+            50% { opacity: 1; filter: drop-shadow(0 0 35px rgba(249, 115, 22, 1)); }
         }
 
-        /* OC Section */
-        .oc-section {
-            min-height: 100vh;
-            padding: 80px 20px;
-            position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            margin: 0 auto;
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .animate-float-slow {
+            animation: float-slow 7s ease-in-out infinite;
+        }
+        .animate-pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #ff7518;
-            margin-bottom: 50px;
-            text-shadow: 0 0 10px rgba(255, 117, 24, 0.4);
+        .oc-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .oc-card:hover {
+            transform: translateY(-8px) scale(1.02);
         }
 
-        .cards-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .card {
-            background: rgba(25, 20, 35, 0.85);
-            border: 2px solid #3a2e4c;
-            border-radius: 20px;
-            width: 380px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: #ff7518;
-            box-shadow: 0 15px 35px rgba(255, 117, 24, 0.3);
-        }
-
-        .card-img-wrapper {
-            width: 100%;
-            height: 420px;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 2px solid #4a3860;
-            margin-bottom: 20px;
-            background-color: #1a1525;
-        }
-
-        .card-img-wrapper img {
+        .fog-container {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.12;
         }
-
-        .card:hover .card-img-wrapper img {
-            transform: scale(1.05);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .card-name {
-            font-size: 1.8rem;
-            color: #ff9d00;
-            font-weight: bold;
-        }
-
-        .card-age {
-            font-size: 1rem;
-            color: #a0a0a0;
-            background: #2a1f3d;
-            padding: 4px 12px;
-            border-radius: 12px;
-        }
-
-        .card-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
-
-        .tag {
-            font-size: 0.8rem;
-            padding: 3px 8px;
-            background: rgba(128, 0, 128, 0.3);
-            border: 1px solid #800080;
-            border-radius: 6px;
-            color: #d8b4fe;
-        }
-
-        .card-info-list {
-            list-style: none;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: #cccccc;
-            margin-bottom: 20px;
-        }
-
-        .card-info-list strong {
-            color: #ff7518;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            backdrop-filter: blur(8px);
-        }
-
-        .modal-content {
-            background: #181224;
-            border: 2px solid #ff7518;
-            border-radius: 20px;
-            max-width: 650px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 30px;
-            position: relative;
-            box-shadow: 0 0 30px rgba(255, 117, 24, 0.4);
-        }
-
-        .close-btn {
+        .fog-img {
             position: absolute;
-            top: 15px; right: 20px;
-            font-size: 2rem;
-            color: #aaa;
-            cursor: pointer;
+            height: 100%;
+            width: 300%;
+            background: url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=1200&q=80') repeat-x;
+            background-size: contain;
+            animation: fogMove 60s linear infinite;
         }
-
-        .close-btn:hover {
-            color: #ff7518;
-        }
-
-        .modal-title {
-            font-size: 2rem;
-            color: #ff9d00;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #3a2e4c;
-            padding-bottom: 10px;
-        }
-
-        .modal-section {
-            margin-bottom: 20px;
-        }
-
-        .modal-section h4 {
-            color: #ff7518;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-
-        .modal-section p {
-            line-height: 1.7;
-            color: #ddd;
-            font-size: 0.95rem;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.03); }
+        @keyframes fogMove {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
         }
     </style>
 </head>
-<body>
+<body class="relative min-h-screen bg-[#0c0814] text-gray-100 flex flex-col selection:bg-orange-500 selection:text-black">
 
-    <!-- Landing Hero Section -->
-    <section class="hero" id="home">
-        <h1>HAPPY HALLOWEEN!</h1>
-        <p>어둠 속에서 피어난 남매의 이야기, 할로윈 축제에 오신 것을 환영합니다.</p>
-        <button class="btn-main" onclick="scrollToOC()">아이들 알아보기 🎃</button>
-    </section>
-
-    <!-- OC Profile Section -->
-    <section class="oc-section" id="characters">
-        <h2 class="section-title">🔮 CHARACTER ARCHIVE</h2>
-        
-        <div class="cards-container">
-
-            <!-- 시안 (Cian) -->
-            <div class="card">
-                <div class="card-img-wrapper">
-                    <img src="https://igx.kr/u/ymc/c/1" alt="시안">
-                </div>
-                <div class="card-header">
-                    <span class="card-name">시안</span>
-                    <span class="card-age">21세 / 여성</span>
-                </div>
-                <div class="card-tags">
-                    <span class="tag">ISFJ</span>
-                    <span class="tag">2w1</span>
-                    <span class="tag">질서 선</span>
-                    <span class="tag">쌍둥이 누나</span>
-                </div>
-                <ul class="card-info-list">
-                    <li><strong>신체:</strong> 178cm | 체중: 비,비밀!😣</li>
-                    <li><strong>특징:</strong> 선천적 시각장애(백내장), 만성 통증</li>
-                    <li><strong>성격:</strong> 부끄럼 많고 동생을 끔찍하게 아낌</li>
-                    <li><strong>상태:</strong> 익숙한 곳 아니면 송 없이 걷기 힘듦</li>
-                </ul>
-                <button class="btn-main" style="width: 100%; font-size: 0.95rem; padding: 10px;" onclick="openModal('cian')">상세 프로필 & 스토리 🎃</button>
-            </div>
-
-            <!-- 송 (Song) -->
-            <div class="card">
-                <div class="card-img-wrapper">
-                    <img src="https://igx.kr/u/ymc/d/1" alt="송">
-                </div>
-                <div class="card-header">
-                    <span class="card-name">송</span>
-                    <span class="card-age">21세 / 남성</span>
-                </div>
-                <div class="card-tags">
-                    <span class="tag">ENTP</span>
-                    <span class="tag">7w6</span>
-                    <span class="tag">중립 선</span>
-                    <span class="tag">쌍둥이 동생</span>
-                </div>
-                <ul class="card-info-list">
-                    <li><strong>신체:</strong> 149cm | 45kg</li>
-                    <li><strong>특징:</strong> 선천적 청각장애(난청), 수어 마스터</li>
-                    <li><strong>성격:</strong> 씩씩하고 헤실거리는 분위기 메이커</li>
-                    <li><strong>상태:</strong> 시안 앞에서는 늘 자신만만한 척함</li>
-                </ul>
-                <button class="btn-main" style="width: 100%; font-size: 0.95rem; padding: 10px;" onclick="openModal('song')">상세 프로필 & 스토리 🎃</button>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- 시안 Modal -->
-    <div class="modal" id="modal-cian">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('cian')">&times;</span>
-            <h3 class="modal-title">시안 (Cian) - 상세 정보</h3>
-            
-            <div class="modal-section">
-                <h4>📌 기본 정보</h4>
-                <p>• 나이/성별: 21세 / 여성<br>
-                   • 신장/체중: 178cm / 비,비밀!😣<br>
-                   • 성향: ISFJ, 2w1, 질서 선</p>
-            </div>
-
-            <div class="modal-section">
-                <h4>📜 과거사</h4>
-                <p>어릴 때 부모를 잃고 고아원도 문을 닫아 마지막 남은 유산(집)에서 송과 같이 살아가고 있습니다.</p>
-            </div>
-
-            <div class="modal-section">
-                <h4>👁️ 특징</h4>
-                <p>• 선천적 시각장애(백내장)를 앓고 있습니다.<br>
-                   • 만성 어깨결림과 허리통증이 있습니다.<br>
-                   • 부끄러움이 많고 동생을 끔찍하게 아낍니다.<br>
-                   • 익숙한 곳이 아니면 송이 없으면 걷거나 하는 게 힘듭니다.<br>
-                   • 시각 대신 촉각과 감각이 예민하여, 송이 걸어올 때의 발소리 패턴이나 옷깃 소리만으로도 동생이 가까이 왔음을 단번에 눈치채곤 합니다.</p>
-            </div>
-
-            <div class="modal-section">
-                <h4>🎃 할로윈 비하인드</h4>
-                <p>• <strong>할로윈 코스튬:</strong> 붕대를 감은 붕대 미라 컨셉.<br>
-                   • 앞이 보이지 않아 축제의 화려한 풍경을 볼 수는 없지만, 송이 손에 쥐어주는 사탕과 가을 밤공기의 냄새만으로도 할로윈 축제 분위기를 함께 즐깁니다.</p>
-            </div>
-        </div>
+    <div class="fog-container">
+        <div class="fog-img"></div>
     </div>
 
-    <!-- 송 Modal -->
-    <div class="modal" id="modal-song">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('song')">&times;</span>
-            <h3 class="modal-title">송 (Song) - 상세 정보</h3>
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute top-12 left-[8%] text-purple-400/20 animate-float-slow text-6xl">👻</div>
+        <div class="absolute top-1/3 right-[6%] text-orange-400/20 animate-float text-7xl">🎃</div>
+        <div class="absolute bottom-1/4 left-[4%] text-purple-400/20 animate-float-slow text-6xl">🦇</div>
+        <div class="absolute bottom-12 right-[10%] text-orange-400/20 animate-float text-6xl">💀</div>
+    </div>
+
+    <nav class="relative z-20 flex justify-between items-center px-6 py-4 border-b border-purple-900/40 bg-black/50 backdrop-blur-md">
+        <div class="flex items-center gap-2">
+            <span class="text-2xl">🎃</span>
+            <span class="font-spooky text-2xl tracking-widest text-orange-500 text-glow-orange">TWIN SPOOKS</span>
+        </div>
+        <div class="flex items-center gap-6 text-sm font-medium">
+            <a href="#hero" class="hover:text-orange-400 transition-colors">홈</a>
+            <a href="#characters" class="hover:text-orange-400 transition-colors">캐릭터 정보</a>
+            <a href="#minigame" class="hover:text-orange-400 transition-colors">미니게임</a>
+        </div>
+    </nav>
+
+    <section id="hero" class="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-4 pt-10 pb-20">
+        <div class="mb-6 relative animate-pulse-glow">
+            <div class="text-8xl sm:text-9xl filter drop-shadow-[0_0_30px_rgba(249,115,22,0.6)]">🎃</div>
+            <div class="absolute -top-4 -right-4 text-4xl animate-bounce">✨</div>
+        </div>
+
+        <h1 class="font-spooky text-6xl sm:text-8xl md:text-9xl tracking-wider text-orange-500 text-glow-orange mb-4">
+            HAPPY HALLOWEEN!
+        </h1>
+
+        <p class="font-batang text-lg sm:text-2xl text-purple-200/90 max-w-2xl mb-10 leading-relaxed font-light">
+            어두운 밤, 서로의 유일한 빛이 되어주는 쌍둥이 남매<br>
+            <strong class="text-orange-400 font-bold">'시안'</strong>과 <strong class="text-purple-300 font-bold">'송'</strong>의 특별한 할로윈 이야기
+        </p>
+
+        <a href="#characters" class="group relative inline-flex items-center gap-3 px-8 py-4 text-xl font-bold rounded-full bg-gradient-to-r from-orange-600 via-purple-700 to-orange-600 bg-[length:200%_auto] text-white shadow-lg transition-all duration-500 hover:bg-right hover:scale-105 hover:shadow-orange-500/50 border border-orange-400/30">
+            <span>아이들 알아보기</span>
+            <i data-lucide="chevron-down" class="w-6 h-6 transition-transform group-hover:translate-y-1"></i>
+        </a>
+    </section>
+
+    <section id="characters" class="relative z-10 max-w-6xl mx-auto px-4 py-20 w-full">
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-950/80 border border-purple-500/30 text-purple-300 text-sm mb-3">
+                <span>🕯️</span> ORIGINAL CHARACTER ARCHIVE
+            </div>
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-purple-300 to-orange-400 mb-4 font-batang">
+                할로윈 쌍둥이 남매
+            </h2>
+            <p class="text-gray-400 max-w-lg mx-auto text-sm sm:text-base">
+                카드를 클릭하면 아이들의 세부 정보, 과거사, 그리고 할로윈 에피소드를 확인할 수 있습니다.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
             
-            <div class="modal-section">
-                <h4>📌 기본 정보</h4>
-                <p>• 나이/성별: 21세 / 남성<br>
-                   • 신장/체중: 149cm / 45kg<br>
-                   • 성향: ENTP, 7w6, 중립 선</p>
+            <!-- OC 1: CIAN -->
+            <div onclick="openModal('cian')" class="oc-card group relative bg-slate-900/80 border border-orange-500/30 rounded-3xl overflow-hidden shadow-2xl cursor-pointer hover:border-orange-500 hover:glow-orange">
+                <div class="absolute top-4 left-4 z-20 px-3 py-1 bg-orange-600/90 text-black font-extrabold text-xs rounded-full shadow-md flex items-center gap-1">
+                    <span>🩹</span> 미라
+                </div>
+
+                <div class="relative h-80 sm:h-96 w-full overflow-hidden bg-gradient-to-b from-purple-950/40 to-slate-950">
+                    <img src="https://igx.kr/u/ymc/c/1" 
+                         alt="시안" 
+                         class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-85 group-hover:opacity-100"
+                         onerror="this.src='https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=800&q=80'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0c0814] via-transparent to-transparent"></div>
+                </div>
+
+                <div class="p-6 relative z-10 -mt-12 bg-gradient-to-t from-[#0c0814] via-[#0c0814]/90 to-transparent">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <span class="text-xs text-orange-400 font-semibold tracking-widest uppercase">Twin Sister #01</span>
+                            <h3 class="text-3xl font-bold text-white font-batang group-hover:text-orange-400 transition-colors">시안 (Cian)</h3>
+                        </div>
+                        <span class="text-xs px-2.5 py-1 rounded bg-orange-950/80 border border-orange-500/30 text-orange-300">21세 / 여성</span>
+                    </div>
+
+                    <p class="text-gray-300 text-sm mb-4 line-clamp-2 leading-relaxed">
+                        쌍둥이 누나. 선천적 백내장과 만성 통증이 있으며 부끄럼이 많고 동생을 끔찍하게 아낍니다. 익숙한 곳이 아니면 송 없이는 걸어 다니기 힘들어합니다.
+                    </p>
+
+                    <div class="flex flex-wrap gap-1.5 mb-6">
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-purple-900/40 text-purple-300 border border-purple-700/30">#ISFJ</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-purple-900/40 text-purple-300 border border-purple-700/30">#2w1</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-purple-900/40 text-purple-300 border border-purple-700/30">#질서선</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-orange-900/40 text-orange-300 border border-orange-700/30">#178cm</span>
+                    </div>
+
+                    <button class="w-full py-3 bg-orange-600/20 group-hover:bg-orange-600 text-orange-300 group-hover:text-black font-semibold rounded-xl border border-orange-500/40 transition-all flex items-center justify-center gap-2">
+                        <span>상세 프로필 & 스토리 🎃</span>
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="modal-section">
-                <h4>📜 과거사</h4>
-                <p>어릴 때 부모를 잃고 고아원도 문을 닫아 마지막 남은 유산(집)에서 시안과 같이 살아가고 있습니다.</p>
+            <!-- OC 2: SONG -->
+            <div onclick="openModal('song')" class="oc-card group relative bg-slate-900/80 border border-purple-500/30 rounded-3xl overflow-hidden shadow-2xl cursor-pointer hover:border-purple-500 hover:glow-purple">
+                <div class="absolute top-4 left-4 z-20 px-3 py-1 bg-purple-600/90 text-white font-extrabold text-xs rounded-full shadow-md flex items-center gap-1">
+                    <span>🐱</span> 고양이 마녀
+                </div>
+
+                <div class="relative h-80 sm:h-96 w-full overflow-hidden bg-gradient-to-b from-purple-950/40 to-slate-950">
+                    <img src="https://igx.kr/u/ymc/d/1" 
+                         alt="송" 
+                         class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-85 group-hover:opacity-100"
+                         onerror="this.src='https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0c0814] via-transparent to-transparent"></div>
+                </div>
+
+                <div class="p-6 relative z-10 -mt-12 bg-gradient-to-t from-[#0c0814] via-[#0c0814]/90 to-transparent">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <span class="text-xs text-purple-400 font-semibold tracking-widest uppercase">Twin Brother #02</span>
+                            <h3 class="text-3xl font-bold text-white font-batang group-hover:text-purple-400 transition-colors">송 (Song)</h3>
+                        </div>
+                        <span class="text-xs px-2.5 py-1 rounded bg-purple-950/80 border border-purple-500/30 text-purple-300">21세 / 남성</span>
+                    </div>
+
+                    <p class="text-gray-300 text-sm mb-4 line-clamp-2 leading-relaxed">
+                        쌍둥이 동생. 선천적 난청이 있지만 수어를 완벽히 마스터했고, 발음 연습으로 말을 잘합니다. 누나 앞에서는 항상 자신만만한 태도를 보입니다.
+                    </p>
+
+                    <div class="flex flex-wrap gap-1.5 mb-6">
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-orange-950/40 text-orange-300 border border-orange-700/30">#ENTP</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-orange-950/40 text-orange-300 border border-orange-700/30">#7w6</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-orange-950/40 text-orange-300 border border-orange-700/30">#중립선</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-purple-950/40 text-purple-300 border border-purple-700/30">#149cm</span>
+                    </div>
+
+                    <button class="w-full py-3 bg-purple-600/20 group-hover:bg-purple-600 text-purple-300 group-hover:text-white font-semibold rounded-xl border border-purple-500/40 transition-all flex items-center justify-center gap-2">
+                        <span>상세 프로필 & 스토리 🎃</span>
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="modal-section">
-                <h4>👂 특징</h4>
-                <p>• 선천적 청각장애(난청)가 있으며, 돈이 없어 보청기를 사지 못하는 중입니다.<br>
-                   • 수어를 완벽히 마스터했습니다.<br>
-                   • 시안에게 발음을 배워 생각보다 잘 말해서, 처음 본 사람은 청각장애인 걸 모릅니다.<br>
-                   • 상대가 마스크를 쓰면 입모양이 안 보여 말을 이해하지 못합니다.<br>
-                   • 상대방의 입모양을 읽는 독순술 능력이 훌륭하며, 누나를 끔찍하게 아낍니다.<br>
-                   • 씩씩하고 헤실거리는 귀여운 동생으로, 누나 시안 앞에서는 항상 자신만만한 척합니다.</p>
+        </div>
+    </section>
+
+    <section id="minigame" class="relative z-10 max-w-4xl mx-auto px-4 py-16 w-full my-8">
+        <div class="bg-gradient-to-r from-purple-950/60 via-slate-900/90 to-orange-950/60 border border-orange-500/30 rounded-3xl p-8 text-center backdrop-blur-sm relative overflow-hidden shadow-2xl">
+            <h3 class="text-2xl sm:text-3xl font-bold font-batang text-orange-400 mb-2">🍬 남매를 위한 사탕 모으기</h3>
+            <p class="text-gray-300 text-sm mb-6">호박을 클릭해 시안과 송에게 전해줄 할로윈 사탕을 모아보세요!</p>
+
+            <div class="flex flex-col items-center justify-center gap-4">
+                <button id="candy-btn" class="text-7xl sm:text-8xl hover:scale-110 active:scale-95 transition-transform duration-150 cursor-pointer select-none filter drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]">
+                    🎃
+                </button>
+
+                <div class="flex items-center gap-2 bg-black/60 px-6 py-2 rounded-full border border-orange-500/40 mt-2">
+                    <span class="text-gray-400 text-sm">수집한 사탕:</span>
+                    <span id="candy-count" class="text-2xl font-bold text-orange-400">0</span>
+                    <span class="text-xl">🍬</span>
+                </div>
+
+                <p id="candy-msg" class="text-xs text-purple-300 h-4 mt-1 font-light italic">
+                    클릭하여 남매에게 따뜻한 할로윈 사탕을 선물하세요!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="relative z-10 border-t border-purple-900/30 bg-black/60 py-8 text-center text-xs text-gray-500">
+        <p>Original Character Presentation Website • Cian & Song Showcase</p>
+    </footer>
+
+    <!-- MODAL -->
+    <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden transition-opacity duration-300">
+        <div class="relative bg-[#130d1e] border border-orange-500/40 w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-6 border-b border-purple-900/40 bg-purple-950/40">
+                <div class="flex items-center gap-3">
+                    <span id="modal-icon" class="text-3xl">🎃</span>
+                    <div>
+                        <h3 id="modal-title" class="text-2xl font-bold text-white font-batang">캐릭터 이름</h3>
+                        <span id="modal-subtitle" class="text-xs text-orange-400">키워드 정보</span>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
             </div>
 
-            <div class="modal-section">
-                <h4>🎃 할로윈 비하인드</h4>
-                <p>• <strong>할로윈 코스튬:</strong> 귀여운 고양이 귀와 모자를 쓴 고양이 마녀 컨셉.<br>
-                   • 할로윈 거리에서 가면이나 마스크를 쓴 사람들을 만나면 입모양이 보이지 않아 속으로 당황하지만, 누나 앞에서는 의연하고 당당하게 행동하려고 애씁니다.</p>
+            <div class="p-6 overflow-y-auto space-y-6 text-sm text-gray-200">
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-black/50 p-4 rounded-2xl border border-purple-800/30">
+                    <div>
+                        <span class="text-xs text-gray-400 block mb-0.5">나이 / 성별</span>
+                        <span id="modal-age" class="font-semibold text-orange-300">-</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gray-400 block mb-0.5">키 / 몸무게</span>
+                        <span id="modal-physical" class="font-semibold text-purple-300">-</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gray-400 block mb-0.5">MBTI / 에니어그램</span>
+                        <span id="modal-mbti" class="font-semibold text-purple-300">-</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gray-400 block mb-0.5">성향 (Alignment)</span>
+                        <span id="modal-alignment" class="font-semibold text-orange-300">-</span>
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <span class="text-xs text-gray-400 block mb-0.5">할로윈 코스튬</span>
+                        <span id="modal-costume" class="font-semibold text-purple-300">-</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-orange-400 tracking-wider uppercase mb-2 flex items-center gap-1.5">
+                        <i data-lucide="user-check" class="w-4 h-4"></i> 주요 특징
+                    </h4>
+                    <p id="modal-features" class="leading-relaxed text-gray-300 font-light bg-purple-950/20 p-4 rounded-xl border border-purple-900/30">
+                        특징이 들어갑니다.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-purple-400 tracking-wider uppercase mb-2 flex items-center gap-1.5">
+                        <i data-lucide="book-open" class="w-4 h-4"></i> 과거사 & 배경
+                    </h4>
+                    <p id="modal-background" class="leading-relaxed text-gray-300 font-light bg-purple-950/20 p-4 rounded-xl border border-purple-900/30">
+                        과거사가 들어갑니다.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-r from-orange-950/30 via-black to-purple-950/30 p-4 rounded-xl border border-orange-500/30">
+                    <h4 class="text-xs font-bold text-orange-400 tracking-wider uppercase mb-2 flex items-center gap-1.5">
+                        <span>🎃</span> 할로윈 비하인드
+                    </h4>
+                    <p id="modal-lore" class="leading-relaxed text-gray-200 font-light text-xs sm:text-sm">
+                        설정이 들어갑니다.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="p-4 border-t border-purple-900/40 bg-purple-950/30 text-right">
+                <button onclick="closeModal()" class="px-5 py-2 bg-orange-600 hover:bg-orange-500 text-black font-bold rounded-xl text-sm transition-colors">
+                    닫기
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-        function scrollToOC() {
-            document.getElementById('characters').scrollIntoView({ behavior: 'smooth' });
-        }
+        lucide.createIcons();
 
-        function openModal(id) {
-            document.getElementById('modal-' + id).style.display = 'flex';
-        }
-
-        function closeModal(id) {
-            document.getElementById('modal-' + id).style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
+        const ocData = {
+            cian: {
+                name: "시안 (Cian)",
+                subtitle: "ISFJ • 2w1 • 질서 선 • 송의 쌍둥이 누나",
+                icon: "🩹",
+                age: "21세 / 여성",
+                physical: "178cm / 비,비밀!😣",
+                mbti: "ISFJ / 2w1",
+                alignment: "질서 선 (Lawful Good)",
+                costume: "미라 (Mummy)",
+                features: "• 선천적 시각장애(백내장), 만성 어깨결림과 허리통증을 앓고 있습니다.<br>• 부끄러움이 많고 동생을 끔찍하게 아끼며, 익숙한 곳이 아니면 송이 없으면 걷거나 하는 게 힘들어합니다.<br>• 눈이 보이지 않는 대신 청각과 촉각이 자연스럽게 발달하여, 송의 발소리 패턴이나 옷깃 스치는 소리만으로도 동생의 위치와 기분을 단번에 알아채곤 합니다.",
+                background: "어릴 때 부모를 잃고 고아원도 문을 닫아 마지막 남은 유산(집)에서 송과 같이 살아감",
+                lore: "• 붕대를 감은 '미라' 코스튬을 입고 할로윈에 참가합니다.<br>• 눈이 보이지 않아 화려한 장식은 볼 수 없지만, 송이 손을 쥐어주며 건네는 달콤한 사탕과 밤공기 냄새만으로도 할로윈 축제를 즐거워합니다."
+            },
+            song: {
+                name: "송 (Song)",
+                subtitle: "ENTP • 7w6 • 중립 선 • 시안의 쌍둥이 동생",
+                icon: "🐱",
+                age: "21세 / 남성",
+                physical: "149cm / 45kg",
+                mbti: "ENTP / 7w6",
+                alignment: "중립 선 (Neutral Good)",
+                costume: "고양이 마녀 (Cat Witch)",
+                features: "• 선천적 청각장애(난청)가 있으며, 돈이 없어 보청기를 사지 못하는 중입니다.<br>• 누나를 끔찍하게 아끼며, 씩씩하고 헤실거리는 귀여운 동생입니다. 시안 앞에서는 늘 자신만만한 척을 합니다.<br>• 시안에게 발음을 배워 생각보다 잘 말해 처음 본 사람은 청각장애인 걸 모릅니다.<br>• 수어를 완벽하게 마스터했고, 상대방의 입모양을 읽는 것에 익숙해 대화에 큰 불편함이 없습니다. (단, 마스크를 쓰면 이해하지 못합니다.)",
+                background: "어릴 때 부모를 잃고 고아원도 문을 닫아 마지막 남은 유산(집)에서 시안과 같이 살아감",
+                lore: "• 꼬깔모자와 고양이 귀, 꼬리가 달린 '고양이 마녀' 코스튬을 착용합니다.<br>• 할로윈 가면을 쓴 사람들의 입모양이 보이지 않아 당황할 때도 있지만, 누나 앞에서는 절대 약한 모습을 보이지 않으며 호박 바구니를 가득 채워 누나에게 선물하곤 합니다."
             }
         };
+
+        const modal = document.getElementById('modal');
+        function openModal(id) {
+            const oc = ocData[id];
+            if (!oc) return;
+
+            document.getElementById('modal-title').textContent = oc.name;
+            document.getElementById('modal-subtitle').textContent = oc.subtitle;
+            document.getElementById('modal-icon').textContent = oc.icon;
+            document.getElementById('modal-age').textContent = oc.age;
+            document.getElementById('modal-physical').textContent = oc.physical;
+            document.getElementById('modal-mbti').textContent = oc.mbti;
+            document.getElementById('modal-alignment').textContent = oc.alignment;
+            document.getElementById('modal-costume').textContent = oc.costume;
+            document.getElementById('modal-features').innerHTML = oc.features;
+            document.getElementById('modal-background').innerHTML = oc.background;
+            document.getElementById('modal-lore').innerHTML = oc.lore;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+        });
+
+        let candyCount = 0;
+        const candyBtn = document.getElementById('candy-btn');
+        const candyCountDisplay = document.getElementById('candy-count');
+        const candyMsg = document.getElementById('candy-msg');
+
+        const candyMessages = [
+            "시안이 사탕 향기를 맡고 수줍게 미소짓습니다. 🍬",
+            "고양이 마녀 모자를 쓴 송이 '누나 이것 봐라!' 하며 자랑합니다. 🐱",
+            "남매의 작은 호박 바구니가 점점 채워지고 있어요!",
+            "송이 누나 시안의 손을 꼭 잡고 사탕을 챙깁니다."
+        ];
+
+        candyBtn.addEventListener('click', () => {
+            candyCount++;
+            candyCountDisplay.textContent = candyCount;
+
+            if (candyCount % 4 === 0) {
+                candyMsg.textContent = candyMessages[Math.floor(Math.random() * candyMessages.length)];
+            } else if (candyCount === 10) {
+                candyMsg.textContent = "🎉 축하합니다! 시안과 송에게 줄 사탕 10개 달성!";
+            }
+
+            candyBtn.style.transform = `scale(1.15) rotate(${Math.random() * 20 - 10}deg)`;
+            setTimeout(() => {
+                candyBtn.style.transform = 'scale(1) rotate(0deg)';
+            }, 120);
+        });
     </script>
 </body>
 </html>
