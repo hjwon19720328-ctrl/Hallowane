@@ -14,114 +14,87 @@
             padding: 0;
         }
 
-        body {
-            background-color: #0b0712;
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #0d0a14;
             color: #e0e0e0;
             font-family: 'Noto Sans KR', sans-serif;
             overflow-x: hidden;
             position: relative;
-            min-height: 100vh;
         }
 
-        /* 저택 내부 실루엣 배경 */
-        .mansion-bg {
+        /* 통일된 단일 배경 오버레이 (색상 분단 버그 해결) */
+        .bg-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 50% 30%, rgba(88, 28, 135, 0.25) 0%, rgba(11, 7, 18, 0.95) 80%),
-                linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(11,7,18,0.9) 100%),
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"><path d="M0 600 L0 400 L80 400 L80 250 L120 200 L160 250 L160 400 L300 400 L300 150 L350 100 L400 150 L400 200 L480 120 L560 200 L560 400 L680 400 L680 300 L720 260 L760 300 L760 400 L800 400 L800 600 Z" fill="%23050308" opacity="0.7"/><rect x="320" y="220" width="30" height="50" rx="15" fill="%23ff9d00" opacity="0.15"/><rect x="500" y="250" width="40" height="60" rx="20" fill="%23ff9d00" opacity="0.15"/></svg>');
-            background-size: cover;
-            background-position: center bottom;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* 으스스한 저택 안개 효과 (Layer 1 & 2) */
-        .fog-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, rgba(35, 15, 50, 0.9) 0%, rgba(10, 6, 18, 0.98) 100%);
             pointer-events: none;
             z-index: 1;
-            overflow: hidden;
         }
 
-        .fog-layer {
-            position: absolute;
-            bottom: -20%; left: -50%; width: 200%; height: 80%;
-            background: radial-gradient(ellipse at center, rgba(160, 130, 200, 0.12) 0%, rgba(13, 10, 20, 0) 70%);
-            filter: blur(40px);
-            animation: fogMove 25s linear infinite alternate;
-        }
-
-        .fog-layer-2 {
-            position: absolute;
-            bottom: -10%; left: -30%; width: 180%; height: 60%;
-            background: radial-gradient(ellipse at center, rgba(255, 117, 24, 0.08) 0%, rgba(13, 10, 20, 0) 65%);
-            filter: blur(30px);
-            animation: fogMove2 18s linear infinite alternate-reverse;
-        }
-
-        @keyframes fogMove {
-            0% { transform: translateX(-10%) translateY(0); }
-            100% { transform: translateX(10%) translateY(-30px); }
-        }
-
-        @keyframes fogMove2 {
-            0% { transform: translateX(10%) translateY(0); }
-            100% { transform: translateX(-10%) translateY(-20px); }
-        }
-
-        /* 사탕 수에 따라 동적으로 추가되는 배경 유령/호박 요소 레이어 */
-        #dynamic-spooks {
+        /* 배경 요소를 담는 컨테이너 */
+        #spooky-bg-container {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
             z-index: 2;
             overflow: hidden;
         }
 
-        .spook-item {
+        .floating-object {
             position: absolute;
             font-size: 2rem;
+            opacity: 0.25;
+            animation: floatAnim linear infinite alternate;
             user-select: none;
-            animation: floatSpook 6s ease-in-out infinite alternate;
-            filter: drop-shadow(0 0 10px rgba(255, 117, 24, 0.5));
-            opacity: 0;
-            transition: opacity 0.8s ease;
+            transition: opacity 0.5s ease;
         }
 
-        @keyframes floatSpook {
-            0% { transform: translateY(0) rotate(-5deg); }
-            100% { transform: translateY(-25px) rotate(5deg); }
+        @keyframes floatAnim {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-30px) rotate(15deg); }
+        }
+
+        /* 메인 콘텐츠 구조 */
+        .main-wrapper {
+            position: relative;
+            z-index: 3;
+            width: 100%;
         }
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative;
-            z-index: 3;
+            padding: 20px;
         }
 
         .hero h1 {
             font-family: 'Creepster', cursive;
-            font-size: 5rem;
+            font-size: clamp(3rem, 8vw, 5.5rem);
             color: #ff7518;
-            text-shadow: 0 0 10px #ff7518, 0 0 20px #ff4500, 0 0 40px #800080;
+            text-shadow: 0 0 10px #ff7518, 0 0 25px #ff4500, 0 0 45px #800080;
             letter-spacing: 3px;
             margin-bottom: 20px;
             animation: pulse 2s infinite alternate;
         }
 
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #b8a9c9;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            word-break: keep-all;
         }
 
         .btn-main {
@@ -143,51 +116,45 @@
             background: linear-gradient(135deg, #800080, #ff7518);
         }
 
-        /* 사탕 수집 클리커 카운터 */
-        .candy-counter-box {
-            margin-top: 30px;
-            background: rgba(20, 15, 30, 0.85);
+        /* 사탕 미니게임 카운터 */
+        .candy-game-box {
+            margin-top: 35px;
+            background: rgba(25, 18, 38, 0.85);
             border: 2px solid #ff7518;
-            padding: 15px 30px;
-            border-radius: 30px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 20px rgba(255, 117, 24, 0.3);
+            padding: 20px 30px;
+            border-radius: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-        }
-
-        .candy-btn {
-            background: none;
-            border: none;
-            font-size: 3rem;
-            cursor: pointer;
-            transition: transform 0.1s ease;
-            filter: drop-shadow(0 0 10px #ff7518);
-        }
-
-        .candy-btn:active {
-            transform: scale(1.3) rotate(15deg);
+            gap: 12px;
+            box-shadow: 0 0 20px rgba(255, 117, 24, 0.3);
         }
 
         .candy-count {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
+            color: #ffaa00;
             font-weight: bold;
-            color: #ff9d00;
         }
 
-        .candy-hint {
-            font-size: 0.85rem;
-            color: #a090b5;
+        .btn-candy {
+            padding: 12px 25px;
+            font-size: 1rem;
+            background: #800080;
+            color: white;
+            border: 1px solid #d8b4fe;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.1s ease, background 0.2s;
+        }
+
+        .btn-candy:active {
+            transform: scale(0.92);
         }
 
         /* OC Section */
         .oc-section {
             min-height: 100vh;
             padding: 80px 20px;
-            position: relative;
-            z-index: 3;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -208,20 +175,20 @@
         }
 
         .card {
-            background: rgba(20, 15, 30, 0.88);
+            background: rgba(22, 16, 32, 0.9);
             border: 2px solid #3a2e4c;
             border-radius: 20px;
             width: 380px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
             transition: all 0.3s ease;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
         }
 
         .card:hover {
             transform: translateY(-10px);
             border-color: #ff7518;
-            box-shadow: 0 15px 35px rgba(255, 117, 24, 0.4);
+            box-shadow: 0 15px 35px rgba(255, 117, 24, 0.3);
         }
 
         .card-img-wrapper {
@@ -231,7 +198,7 @@
             overflow: hidden;
             border: 2px solid #4a3860;
             margin-bottom: 20px;
-            background-color: #151020;
+            background-color: #1a1525;
         }
 
         .card-img-wrapper img {
@@ -299,16 +266,16 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.88);
+            background: rgba(0, 0, 0, 0.85);
             z-index: 100;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
         }
 
         .modal-content {
-            background: #151020;
+            background: #181224;
             border: 2px solid #ff7518;
             border-radius: 20px;
             max-width: 650px;
@@ -364,86 +331,83 @@
 </head>
 <body>
 
-    <!-- 저택 배경 & 안개 레이어 -->
-    <div class="mansion-bg"></div>
-    <div class="fog-container">
-        <div class="fog-layer"></div>
-        <div class="fog-layer-2"></div>
+    <!-- 통일된 단일 어두운 배경 오버레이 -->
+    <div class="bg-overlay"></div>
+
+    <!-- 배경에 사탕 클릭시 늘어나는 유령/호박 컨테이너 -->
+    <div id="spooky-bg-container"></div>
+
+    <div class="main-wrapper">
+        <!-- Landing Hero Section -->
+        <section class="hero" id="home">
+            <h1>HAPPY HALLOWEEN!</h1>
+            <p>어둠 속에서 피어난 남매의 이야기, 할로윈 축제에 오신 것을 환영합니다.</p>
+            <button class="btn-main" onclick="scrollToOC()">아이들 알아보기 🎃</button>
+
+            <!-- 사탕 클릭 게임 -->
+            <div class="candy-game-box">
+                <div class="candy-count" id="candy-display">🍬 모은 사탕: 0개</div>
+                <button class="btn-candy" onclick="collectCandy()">사탕 모으기! (배경 유령 증식 👻)</button>
+            </div>
+        </section>
+
+        <!-- OC Profile Section -->
+        <section class="oc-section" id="characters">
+            <h2 class="section-title">🔮 CHARACTER ARCHIVE</h2>
+            
+            <div class="cards-container">
+
+                <!-- 시안 (Cian) -->
+                <div class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://igx.kr/u/ymc/c/1" alt="시안">
+                    </div>
+                    <div class="card-header">
+                        <span class="card-name">시안</span>
+                        <span class="card-age">21세 / 여성</span>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">ISFJ</span>
+                        <span class="tag">2w1</span>
+                        <span class="tag">질서 선</span>
+                        <span class="tag">쌍둥이 누나</span>
+                    </div>
+                    <ul class="card-info-list">
+                        <li><strong>신체:</strong> 178cm | 체중: 비,비밀!😣</li>
+                        <li><strong>특징:</strong> 선천적 백내장(시각장애), 만성 통증</li>
+                        <li><strong>성격:</strong> 부끄럼 많고 동생을 끔찍하게 아낌</li>
+                        <li><strong>상태:</strong> 익숙한 곳 아니면 송 없이 걷기 힘듦</li>
+                    </ul>
+                    <button class="btn-main" style="width: 100%; font-size: 0.95rem; padding: 10px;" onclick="openModal('cian')">상세 프로필 & 스토리 🎃</button>
+                </div>
+
+                <!-- 송 (Song) -->
+                <div class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://igx.kr/u/ymc/d/1" alt="송">
+                    </div>
+                    <div class="card-header">
+                        <span class="card-name">송</span>
+                        <span class="card-age">21세 / 남성</span>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">ENTP</span>
+                        <span class="tag">7w6</span>
+                        <span class="tag">중립 선</span>
+                        <span class="tag">쌍둥이 동생</span>
+                    </div>
+                    <ul class="card-info-list">
+                        <li><strong>신체:</strong> 149cm | 45kg</li>
+                        <li><strong>특징:</strong> 선천적 난청(청각장애), 수어 마스터</li>
+                        <li><strong>성격:</strong> 씩씩하고 헤실거리는 분위기 메이커</li>
+                        <li><strong>상태:</strong> 시안 앞에서는 늘 자신만만한 척함</li>
+                    </ul>
+                    <button class="btn-main" style="width: 100%; font-size: 0.95rem; padding: 10px;" onclick="openModal('song')">상세 프로필 & 스토리 🎃</button>
+                </div>
+
+            </div>
+        </section>
     </div>
-
-    <!-- 사탕 모으기에 따라 출현하는 유령/호박 레이어 -->
-    <div id="dynamic-spooks"></div>
-
-    <!-- Landing Hero Section -->
-    <section class="hero" id="home">
-        <h1>HAPPY HALLOWEEN!</h1>
-        <p>어둠 속 저택에서 피어난 남매의 이야기, 축제에 오신 것을 환영합니다.</p>
-        <button class="btn-main" onclick="scrollToOC()">아이들 알아보기 🎃</button>
-
-        <!-- 사탕 인터랙션 카운터 -->
-        <div class="candy-counter-box">
-            <button class="candy-btn" onclick="addCandy()">🍬</button>
-            <div class="candy-count">모운 사탕: <span id="candy-num">0</span>개</div>
-            <div class="candy-hint">🍬 사탕을 모으면 저택에 유령과 호박이 몰려듭니다!</div>
-        </div>
-    </section>
-
-    <!-- OC Profile Section -->
-    <section class="oc-section" id="characters">
-        <h2 class="section-title">🔮 CHARACTER ARCHIVE</h2>
-        
-        <div class="cards-container">
-
-            <!-- 시안 (Cian) -->
-            <div class="card">
-                <div class="card-img-wrapper">
-                    <img src="https://igx.kr/u/ymc/c/1" alt="시안">
-                </div>
-                <div class="card-header">
-                    <span class="card-name">시안</span>
-                    <span class="card-age">21세 / 여성</span>
-                </div>
-                <div class="card-tags">
-                    <span class="tag">ISFJ</span>
-                    <span class="tag">2w1</span>
-                    <span class="tag">질서 선</span>
-                    <span class="tag">쌍둥이 누나</span>
-                </div>
-                <ul class="card-info-list">
-                    <li><strong>신체:</strong> 178cm | 체중: 비,비밀!😣</li>
-                    <li><strong>특징:</strong> 선천적 시각장애(백내장), 만성 통증</li>
-                    <li><strong>성격:</strong> 부끄럼 많고 동생을 끔찍하게 아낌</li>
-                    <li><strong>상태:</strong> 익숙한 곳 아니면 송 없이 걷기 힘듦</li>
-                </ul>
-                <button class="btn-main" style="width: 100%; font-size: 0.95rem; padding: 10px;" onclick="openModal('cian')">상세 프로필 & 스토리 🎃</button>
-            </div>
-
-            <!-- 송 (Song) -->
-            <div class="card">
-                <div class="card-img-wrapper">
-                    <img src="https://igx.kr/u/ymc/d/1" alt="송">
-                </div>
-                <div class="card-header">
-                    <span class="card-name">송</span>
-                    <span class="card-age">21세 / 남성</span>
-                </div>
-                <div class="card-tags">
-                    <span class="tag">ENTP</span>
-                    <span class="tag">7w6</span>
-                    <span class="tag">중립 선</span>
-                    <span class="tag">쌍둥이 동생</span>
-                </div>
-                <ul class="card-info-list">
-                    <li><strong>신체:</strong> 149cm | 45kg</li>
-                    <li><strong>특징:</strong> 선천적 청각장애(난청), 수어 마스터</li>
-                    <li><strong>성격:</strong> 씩씩하고 헤실거리는 분위기 메이커</li>
-                    <li><strong>상태:</strong> 시안 앞에서는 늘 자신만만한 척함</li>
-                </ul>
-                <button class="btn-main" style="width: 100%; font-size: 0.95rem; padding: 10px;" onclick="openModal('song')">상세 프로필 & 스토리 🎃</button>
-            </div>
-
-        </div>
-    </section>
 
     <!-- 시안 Modal -->
     <div class="modal" id="modal-cian">
@@ -511,14 +475,49 @@
             <div class="modal-section">
                 <h4>🎃 할로윈 비하인드</h4>
                 <p>• <strong>할로윈 코스튬:</strong> 귀여운 고양이 귀와 모자를 쓴 고양이 마녀 컨셉.<br>
-                   • 할로윈 거리에서 가면이나 마스크를 쓴 사람들을 만나면 입모양이 보이지 않아 속으로 당황하지만, 누나 앞에서는 의연하고 당당하게 행동하려고 애씁니다.</p>
+                   • 할로윈 거리에서 가면이나 마스크를 쓴 사람들을 만나면 입모양이 보이지 않아 속으로 당황하지만, 누나 앞에서는 의연하고 당당하게 행동하려고 애쌉니다.</p>
             </div>
         </div>
     </div>
 
     <script>
         let candyCount = 0;
-        const spookIcons = ['👻', '🎃', '🦇', '💀', '🕷️', '🕯️'];
+        const spookyIcons = ['👻', '🎃', '🦇', '💀', '🕷️'];
+        const container = document.getElementById('spooky-bg-container');
+
+        // 초기 생성 (기본 6개)
+        for (let i = 0; i < 6; i++) {
+            spawnSpookyObject();
+        }
+
+        function collectCandy() {
+            candyCount++;
+            document.getElementById('candy-display').innerText = `🍬 모은 사탕: ${candyCount}개`;
+
+            // 사탕 개수에 따라 배경 할로윈 오브젝트 추가 증식
+            if (candyCount % 2 === 0 && document.querySelectorAll('.floating-object').length < 60) {
+                spawnSpookyObject();
+            }
+        }
+
+        function spawnSpookyObject() {
+            const el = document.createElement('div');
+            el.className = 'floating-object';
+            el.innerText = spookyIcons[Math.floor(Math.random() * spookyIcons.length)];
+
+            // 랜덤 위치 및 애니메이션 속도 설정
+            const left = Math.random() * 95;
+            const top = Math.random() * 95;
+            const size = Math.random() * 1.5 + 1.2; // 1.2rem ~ 2.7rem
+            const duration = Math.random() * 3 + 2; // 2s ~ 5s
+
+            el.style.left = `${left}vw`;
+            el.style.top = `${top}vh`;
+            el.style.fontSize = `${size}rem`;
+            el.style.animationDuration = `${duration}s`;
+
+            container.appendChild(el);
+        }
 
         function scrollToOC() {
             document.getElementById('characters').scrollIntoView({ behavior: 'smooth' });
@@ -537,45 +536,6 @@
                 event.target.style.display = 'none';
             }
         };
-
-        /* 사탕 모으기 클릭 시 동작 */
-        function addCandy() {
-            candyCount++;
-            document.getElementById('candy-num').innerText = candyCount;
-            
-            // 일정 사탕 개수마다(1개당 1~2개 생성) 배경에 새로운 유령/호박 생성
-            spawnSpook();
-        }
-
-        function spawnSpook() {
-            const container = document.getElementById('dynamic-spooks');
-            const spook = document.createElement('div');
-            spook.className = 'spook-item';
-            
-            // 랜덤 아이콘 (유령, 호박, 박쥐 등)
-            const randomIcon = spookIcons[Math.floor(Math.random() * spookIcons.length)];
-            spook.innerText = randomIcon;
-            
-            // 화면 내 랜덤 위치 지정
-            const randomX = Math.random() * 90; // left %
-            const randomY = Math.random() * 85; // top %
-            const randomSize = 1.5 + Math.random() * 2.5; // rem
-            const randomDuration = 4 + Math.random() * 5; // animation sec
-            const randomDelay = Math.random() * 2;
-
-            spook.style.left = randomX + 'vw';
-            spook.style.top = randomY + 'vh';
-            spook.style.fontSize = randomSize + 'rem';
-            spook.style.animationDuration = randomDuration + 's';
-            spook.style.animationDelay = randomDelay + 's';
-
-            container.appendChild(spook);
-
-            // 서서히 등장
-            setTimeout(() => {
-                spook.style.opacity = (0.3 + Math.random() * 0.5).toString();
-            }, 50);
-        }
     </script>
 </body>
 </html>
